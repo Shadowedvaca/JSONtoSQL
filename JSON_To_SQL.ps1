@@ -40,4 +40,7 @@ ForEach-Object {
     $fileContent = Get-Content $_.FullName -Raw
     $sqlQuery = "INSERT INTO $tableName ( Name, Date, Size, Contents ) VALUES ( '$fileName', '$fileDate', $fileSize, '$fileContent' )"
     Invoke-Sqlcmd -Query $sqlQuery -ServerInstance $serverName -Database $databaseName
+
+    # Delete file after upload
+    $_.Delete()
 }
